@@ -1,0 +1,15 @@
+
+class NewsController{
+    // dat phuong thuc 
+    // [Get] / news
+    index(req , res){
+        res.render('news');
+    }
+
+    // [GET] /news/:slug
+    show(req, res){
+        res.send('NEW DETAILS');
+    }
+}
+
+module.exports = new NewsController;
