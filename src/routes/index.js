@@ -3,7 +3,7 @@ const siteRouter = require('./site');
 
 // tao ra 1 function
 function route(app) {
-        app.use('/news', newRouter);
+    app.use('/news', newRouter);
     app.use('/', siteRouter);
 
     // app.get("/", (req, res) => {

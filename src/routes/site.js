@@ -6,5 +6,5 @@ const siteController = require('../app/controllers/SiteController');
 //nos se choc vao cai phuong thuc shows
 router.use('/search', siteController.search);
 
-router.use('/', siteController.index);
+         router.use('/', siteController.index);
 module.exports = router;
