@@ -1,0 +1,34 @@
+<div class="mt-4">
+    <h3>
+        Create Courses
+    </h3>
+    <form method="POST" action="/courses/store">
+        <div class="form-group">
+            <label for="name">
+                Name
+            </label>
+            <input type="text" class="form-control" id="name" name = "name" placeholder="Name Course" />
+        </div>
+          <div class="form-group">
+            <label for="des">
+               Description
+            </label>
+            <input type="text" class="form-control" id="des" name = "description" placeholder="Description" />
+        </div>
+          <div class="form-group">
+            <label for="videoId">
+                VideoID
+            </label>
+            <input type="text" class="form-control" id="videoId" name = "videoId" placeholder="Video Course" />
+        </div>
+         <div class="form-group">
+            <label for="level">
+                Level
+            </label>
+            <input type="text" class="form-control" id="level" name = "level" placeholder="Level Course" />
+        </div>
+        <button type="submit" class="btn btn-primary">
+            Create Course
+        </button>
+    </form>
+</div>

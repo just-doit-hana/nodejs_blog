@@ -1,9 +1,14 @@
 const newRouter = require('./news');
 const siteRouter = require('./site');
+const courseRouter = require('./courses');
+const meRouter = require('./me');
 
 // tao ra 1 function
 function route(app) {
     app.use('/news', newRouter);
+    app.use('/me', meRouter);
+    app.use('/courses', courseRouter);
+
     app.use('/', siteRouter);
 
     // app.get("/", (req, res) => {
