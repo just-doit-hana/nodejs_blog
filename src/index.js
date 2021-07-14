@@ -22,7 +22,7 @@ app.use(
 app.use(express.json());
 
 // Template engine
-app.engine(
+   app.engine(
   "hbs",
   handlebars({
     extname: ".hbs", // tu dinh dang duoi name
@@ -30,14 +30,14 @@ app.engine(
 );
 
 // set ung dung cua minh dang du dung handlebars
-           app.set("view engine", "hbs");
+app.set("view engine", "hbs");
 
 // set thu muc views
-app.set("views", path.join(__dirname, "resources/views"));
+    app.set("views", path.join(__dirname, "resources/views"));
 
 // đầu tiên sẽ vô tk route(app) -- > index.js(Route) --> news --> call function handler
 route(app);
 
 app.listen(port, () => {
-        console.log(`Example app listening at http://localhost:${port}`);
+  console.log(`Example app listening at http://localhost:${port}`);
 });
