@@ -1,9 +1,7 @@
 <div class="mt-4">
   <div>
-    <h1>My Course</h1>
-    {{#if deleteCount }}
-    <a href="/me/trash/courses">Trash ({{deleteCount}})</a>
-    {{/if}}
+    <a href="/me/stored/courses">List Courses</a>
+    <h1> Course Deleted</h1>
   </div>
     <table class="table mt-4">
       <thead>
@@ -11,7 +9,7 @@
           <th scope="col">#</th>
           <th scope="col">Name</th>
           <th scope="col">Level</th>
-          <th scope="col">Time</th>
+          <th scope="col">Time Deleted</th>
                 <th scope="col">Action</th>
         </tr>
       </thead>
@@ -21,19 +19,19 @@
           <td>{{ sum @index 1 }}</td>
           <td>{{this.name}}</td>
           <td>{{this.level}}</td>
-          <td>{{this.createdAt}}</td>
+          <td>{{this.deletedAt}}</td>
           <td>
-              <a class="btn btn-primary" href="/courses/{{this._id}}/edit">Update</a>
+              <a class="btn btn-primary btn-restore" href="#" data-id="{{this._id}}">Restore</a>
           </td>
            <td>
-              <a class="btn btn-danger"  href="" data-toggle="modal" data-id="{{this._id}}" data-target="#delete-course-modal">Delete</a>
+              <a class="btn btn-danger"  href="" data-toggle="modal" data-id="{{this._id}}" data-target="#delete-course-modal">Delete </a>
           </td>
         </tr>
         {{else}}
         <tr>
           <td colspan="5" class="text-center">
-            You not have course , Please create course!!!
-           <a href="/courses/create"> Create Course</a>
+           Trash Empty
+           {{!-- <a href="/courses/create"> Create Course</a> --}}
           </td>
         </tr>
         {{/each}}
@@ -52,7 +50,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <p>Do you want to delete course ?</p>
+        <p>Do you want to delete course forever ?</p>
       </div>
       <div class="modal-footer">
         <button id="btn-delete-courses"  type="button" class="btn btn-danger">Delete</button>
@@ -62,12 +60,16 @@
   </div>
 </div>
 
-{{!-- Delete form hidden  --}}
+
  <form method="POST" name="delete-course-form" ></form>
+  <form method="POST" name="restore-course-form" ></form>
 <script>
   document.addEventListener('DOMContentLoaded' , function(){
     var coursesId;
     var deleteForm = document.forms['delete-course-form'];
+     var restoreForm = document.forms['restore-course-form'];
+    //lay ra tat ca cac button  class restore
+    var restoreBtn = $('.btn-restore');
    //When dialog confirm delete clicked 
       $('#delete-course-modal').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget) 
@@ -77,11 +79,19 @@
       var btnDelete = document.getElementById('btn-delete-courses');
           btnDelete.onclick = function(){
            // alert(coursesId); 
-            deleteForm.action = '/courses/' + coursesId + '?_method=DELETE';
+            deleteForm.action = '/courses/' + coursesId + '/force?_method=DELETE';
 
             {{!-- muc dich tao form trong la de delete  --}}
             deleteForm.submit();
           }
-
+          //Restore button when clicked 
+          //truyen vo 1 callback
+        restoreBtn.click(function(e){
+          e.preventDefault();
+          //dung jquery de lay ra cac id cua khoa hoc 
+          var coursesId =  $(this).data('id');
+            restoreForm.action = '/courses/' + coursesId + '/restore'+'?_method=PATCH';
+            restoreForm.submit();
+        })
   });
 </script>
