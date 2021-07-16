@@ -8,9 +8,11 @@ const port = 3000;
 const route = require('./routes');
 const db = require('./config/db');
 
+const SortMiddleware = require('./app/middleware/SortMiddleware');
 // Connect db
 db.connect();
-
+// custom middleware
+app.use(SortMiddleware);
 // cấu hình file static
 app.use(express.static(path.join(__dirname, 'public')));
 // console.log((path.join(__dirname ,'public')));
@@ -34,6 +36,27 @@ app.engine(
         // customs
         helpers: {
             sum: (a, b) => a + b,
+            sortable: (filed, sort) => {
+                // check flied bam tren url co phai la filed  sort.colum hay ko
+                const sortType = filed === sort.column ? sort.type : 'default';
+
+                const icons = {
+                    default: 'oi oi-elevator',
+                    asc: 'oi oi-sort-ascending',
+                    desc: 'oi oi-sort-descending',
+                };
+                const types = {
+                    default: 'desc',
+                    asc: 'desc',
+                    desc: 'asc',
+                };
+
+                const icon = icons[sortType];
+                const type = types[sortType];
+                return `  <a href="?_sort&column=${filed}&type=${type}">
+                <span class="${icon}"></span>
+                </a>`;
+            },
         },
     }),
 );

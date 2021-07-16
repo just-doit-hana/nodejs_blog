@@ -48,24 +48,39 @@ class CourseController {
             .then(() => res.redirect('/me/stored/courses'))
             .catch(next);
     }
-  // [DELETE] /course/:id
+    // [DELETE] /course/:id
     delete(req, res, next) {
         Course.delete({ _id: req.params.id })
             .then(() => res.redirect('back'))
             .catch(next);
     }
-     // [PATCH] /course/:id/restore
-    restore(req, res , next){
+    // [PATCH] /course/:id/restore
+    restore(req, res, next) {
         Course.restore({ _id: req.params.id })
-        .then(() => res.redirect('back'))
-        .catch(next);
+            .then(() => res.redirect('back'))
+            .catch(next);
     }
 
     // [DELETE] /course/:id/deleteForce
-    deleteForce(req, res , next){
+    deleteForce(req, res, next) {
         Course.deleteOne({ _id: req.params.id })
-        .then(() => res.redirect('back'))
-        .catch(next);
+            .then(() => res.redirect('back'))
+            .catch(next);
+    }
+
+    // [POST] /course/handle-form-action
+    handleFormAction(req, res, next) {
+        // tra ve nhung gi minh submit
+        // res.json(req.body);
+        switch (req.body.action) {
+            case 'delete':
+                Course.delete({ _id: { $in: req.body.courseIds } })
+                    .then(() => res.redirect('back'))
+                    .catch(next);
+                break;
+            default:
+                res.json({ message: 'Action is valid' });
+        }
     }
 }
 

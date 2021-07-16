@@ -1,2 +1,6 @@
 .card-item {
   margin-top: 16px; }
+
+.checkbox-select-all {
+  width: 160px;
+  margin: 0 16px; }
